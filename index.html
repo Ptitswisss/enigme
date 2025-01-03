@@ -85,11 +85,25 @@
       color: #ff4d4d;
       text-shadow: 2px 2px 5px #000;
     }
+
+    #timer {
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      color: #ffcc00;
+      text-shadow: 2px 2px 5px #000;
+    }
+
+    .disabled {
+      pointer-events: none;
+      background: #999;
+      cursor: not-allowed;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Énigme Pirate</h1>
+    <div id="timer">Temps restant : 07:00</div>
     <p>Une lame légendaire, fluide comme l’eau,<br>
     T’attend, pirate, si tu montres ton or au bon moment.<br><br>
     Mais attention, celui qui te la vend,<br>
@@ -101,21 +115,46 @@
     Avec 2 millions, tu peux négocier.</p>
 
     <input type="text" id="answer" placeholder="Ta réponse ici">
-    <button onclick="checkAnswer()">Valider</button>
+    <button id="submit-btn" onclick="checkAnswer()">Valider</button>
 
-    <div class="result" id="result">Le yaourt prime de la vie</div>
+    <div class="result" id="result">Bravo ! Bonne réponse.</div>
     <div class="error" id="error">Mauvaise réponse ! Essaye encore.</div>
+    <div class="error" id="timeout" style="display:none;">Le temps est écoulé !</div>
   </div>
 
   <script>
+    let timeLeft = 420; // 7 minutes in seconds
+    const timerElement = document.getElementById('timer');
+    const submitButton = document.getElementById('submit-btn');
+
+    const timer = setInterval(() => {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      timerElement.textContent = `Temps restant : ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        timerElement.textContent = "Temps écoulé !";
+        document.getElementById('timeout').style.display = 'block';
+        submitButton.classList.add('disabled');
+        submitButton.disabled = true;
+      }
+
+      timeLeft--;
+    }, 1000);
+
     function checkAnswer() {
       const answer = document.getElementById('answer').value.toLowerCase().trim();
       const result = document.getElementById('result');
       const error = document.getElementById('error');
+      const timeout = document.getElementById('timeout');
+
+      if (submitButton.disabled) return; // Prevent answering after timeout
 
       if (answer === 'wando') {
         result.style.display = 'block';
         error.style.display = 'none';
+        timeout.style.display = 'none';
       } else {
         error.style.display = 'block';
         result.style.display = 'none';
