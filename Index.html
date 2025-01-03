@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Énigme Pirate</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background: url('https://via.placeholder.com/1920x1080/000000/FFFFFF?text=Image+de+fond') no-repeat center center fixed;
+      background-size: cover;
+      color: #f4e7c3;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 30px;
+      border: 5px solid #d4a017;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: #d4a017;
+      text-shadow: 2px 2px 5px #000;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 80%;
+      max-width: 400px;
+      border: 2px solid #d4a017;
+      border-radius: 5px;
+      outline: none;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #000;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background: #d4a017;
+      color: #000;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background: #ffcc00;
+      transform: scale(1.1);
+    }
+
+    .result {
+      display: none;
+      margin-top: 20px;
+      font-size: 1.5rem;
+      color: #32cd32;
+      text-shadow: 2px 2px 5px #000;
+    }
+
+    .error {
+      display: none;
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #ff4d4d;
+      text-shadow: 2px 2px 5px #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Énigme Pirate</h1>
+    <p>Une lame légendaire, fluide comme l’eau,<br>
+    T’attend, pirate, si tu montres ton or au bon moment.<br><br>
+    Mais attention, celui qui te la vend,<br>
+    N’est jamais au même endroit constamment.<br>
+    Il voyage entre les îles, insaisissable,<br>
+    Un épéiste discret, pourtant redoutable.<br><br>
+    Cherche-le sur les terres où les sabres brillent,<br>
+    Près des guerriers ou des ombres tranquilles.<br>
+    Avec 2 millions, tu peux négocier.</p>
+
+    <input type="text" id="answer" placeholder="Ta réponse ici">
+    <button onclick="checkAnswer()">Valider</button>
+
+    <div class="result" id="result">Le yaourt prime de la vie</div>
+    <div class="error" id="error">Mauvaise réponse ! Essaye encore.</div>
+  </div>
+
+  <script>
+    function checkAnswer() {
+      const answer = document.getElementById('answer').value.toLowerCase().trim();
+      const result = document.getElementById('result');
+      const error = document.getElementById('error');
+
+      if (answer === 'wando') {
+        result.style.display = 'block';
+        error.style.display = 'none';
+      } else {
+        error.style.display = 'block';
+        result.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
